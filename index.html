@@ -58,7 +58,6 @@
         background-position-y: 65%;
     }
 
-    /* Scaled down character dimensions */
     .character {
         width: 100px; 
         height: 100px; 
@@ -68,6 +67,7 @@
         background-repeat: no-repeat;
         background-position: center bottom;
         transition: transform 0.08s, opacity 0.2s;
+        will-change: left, transform;
     }
     
     #p1 { left: 100px; z-index: 2; }
@@ -338,8 +338,8 @@
     }
     .dpad-container {
         display: grid;
-        grid-template-columns: repeat(3, 32px);
-        grid-template-rows: repeat(2, 32px);
+        grid-template-columns: repeat(3, 34px);
+        grid-template-rows: repeat(2, 34px);
         gap: 2px;
     }
     .touch-btn {
@@ -366,8 +366,8 @@
     #btn-up { grid-column: 2; grid-row: 1; }
 
     .attack-btn {
-        width: 52px;
-        height: 52px;
+        width: 54px;
+        height: 54px;
         border-radius: 50%;
         background: rgba(200, 0, 0, 0.45);
         border: 2px solid rgba(255, 100, 100, 0.8);
@@ -570,6 +570,19 @@
         const p1Timers = {};
         const p2Timers = {};
 
+        // Pre-validate character sprite availability so all characters can run
+        const runSpriteCache = {};
+        ['steve', 'alex', 'dave', 'dilly'].forEach(char => {
+            const img = new Image();
+            img.src = `${char}run.png`;
+            img.onload = () => { runSpriteCache[char] = true; };
+            img.onerror = () => { runSpriteCache[char] = false; };
+        });
+
+        function getRunSprite(character) {
+            return runSpriteCache[character] ? `${character}run.png` : `${character}.png`;
+        }
+
         function getFacingScale(playerNum, statusObj, poseType) {
             let character = (playerNum === 1) ? p1Selection : p2Selection;
             
@@ -650,8 +663,8 @@
 
         const worldWidth = 2000; 
         const boardWidth = 1000;
-        let p1Pos = 600;
-        let p2Pos = 1400;
+        let p1Pos = 400;
+        let p2Pos = 1600;
         let cameraX = 500; 
 
         let p1Health = 100;
@@ -707,6 +720,8 @@
             p1HpBar.style.width = '100%'; p2HpBar.style.width = '100%';
             resetStatuses();
 
+            p1Pos = 400; p2Pos = 1600; cameraX = 500;
+
             p1.style.backgroundImage = `url('${p1Selection}.png')`;
             p2.style.backgroundImage = `url('${p2Selection}.png')`;
             
@@ -756,12 +771,15 @@
             }, 8000);
         }
 
-        /* Pointer-events based touch bindings to prevent auto-scooting / stuck inputs */
+        /* Fully sanitized touch control binding preventing right-side drift & sticking buttons */
         function bindTouchControl(btnId, keyName) {
             const btn = document.getElementById(btnId);
             
             const handleDown = (e) => {
                 e.preventDefault();
+                if (btn.setPointerCapture) {
+                    try { btn.setPointerCapture(e.pointerId); } catch(err) {}
+                }
                 btn.classList.add('pressed');
                 keys[keyName] = true;
 
@@ -778,6 +796,9 @@
 
             const handleUp = (e) => {
                 e.preventDefault();
+                if (btn.releasePointerCapture) {
+                    try { btn.releasePointerCapture(e.pointerId); } catch(err) {}
+                }
                 btn.classList.remove('pressed');
                 keys[keyName] = false;
 
@@ -808,7 +829,8 @@
                 e.preventDefault(); resetGame(); return;
             }
             if (gameOver) return;
-            keys[e.key] = true;
+            keys[e.key.toLowerCase()] = true;
+            if (e.key === ' ') keys[' '] = true;
 
             if (!p1IsComputer && !p1Status.frozen) {
                 if ((e.key === 'w' || e.key === 'W') && !p1Jumping && !p1Crouching) p1Jump();
@@ -818,7 +840,9 @@
         });
 
         document.addEventListener('keyup', (e) => {
-            keys[e.key] = false;
+            keys[e.key.toLowerCase()] = false;
+            if (e.key === ' ') keys[' '] = false;
+
             if (!p1IsComputer && (e.key === 's' || e.key === 'S') && p1Crouching) {
                 p1Crouching = false;
                 p1.style.bottom = '25px';
@@ -829,7 +853,7 @@
             }
         });
 
-        /* Running animation connected directly to daverun.png / steverun.png etc. */
+        /* Dynamic running sprite attachment for ALL characters */
         function applyRunAnimation(playerNum, isMoving) {
             let el = (playerNum === 1) ? p1 : p2;
             let selection = (playerNum === 1) ? p1Selection : p2Selection;
@@ -840,13 +864,8 @@
             if (isJumping || isCrouching || isPunching) return;
 
             if (isMoving) {
-                let runSrc = `${selection}run.png`;
-                let runImg = new Image();
-                runImg.src = runSrc;
-
-                // Dynamically fall back to standing sprite if character run sprite isn't present
-                runImg.onload = () => { el.style.backgroundImage = `url('${runSrc}')`; };
-                runImg.onerror = () => { el.style.backgroundImage = `url('${selection}.png')`; };
+                let runImg = getRunSprite(selection);
+                el.style.backgroundImage = `url('${runImg}')`;
             } else {
                 el.style.backgroundImage = `url('${selection}.png')`;
             }
@@ -861,6 +880,7 @@
                 let isMovingP1 = false;
                 if (Math.abs(distance) > 100) {
                     p1Pos += (distance > 0 ? baseSpeed : -baseSpeed);
+                    p1Pos = Math.max(0, Math.min(worldWidth - 100, p1Pos));
                     isMovingP1 = true;
                 } else if (!p1Punching && Math.random() < 0.12) p1Punch();
 
@@ -875,6 +895,7 @@
                 let isMovingP2 = false;
                 if (Math.abs(distance) > 100) {
                     p2Pos += (distance > 0 ? baseSpeed : -baseSpeed);
+                    p2Pos = Math.max(0, Math.min(worldWidth - 100, p2Pos));
                     isMovingP2 = true;
                 } else if (!p2Punching && Math.random() < 0.12) p2Punch();
 
@@ -890,11 +911,11 @@
                 
                 if (!p1IsComputer && !p1Status.frozen) {
                     let isMovingP1 = false;
-                    if (keys['a'] || keys['A'] || keys['btn-left']) {
+                    if (keys['a'] || keys['btn-left']) {
                         p1Pos = Math.max(0, p1Pos - p1Speed);
                         isMovingP1 = true;
                     }
-                    if (keys['d'] || keys['D'] || keys['btn-right']) {
+                    if (keys['d'] || keys['btn-right']) {
                         p1Pos = Math.min(worldWidth - 100, p1Pos + p1Speed);
                         isMovingP1 = true;
                     }
@@ -904,12 +925,17 @@
 
                 updateComputerControls();
 
+                // Dynamic Scroller: keeps players centered & inside view bounds
                 let avgX = (p1Pos + p2Pos) / 2;
                 let targetCameraX = Math.max(0, Math.min(worldWidth - boardWidth, avgX - (boardWidth / 2)));
-                cameraX += (targetCameraX - cameraX) * 0.05;
+                cameraX += (targetCameraX - cameraX) * 0.08;
 
-                p1.style.left = (p1Pos - cameraX) + 'px';
-                p2.style.left = (p2Pos - cameraX) + 'px';
+                // Restrict character rendering so they stay within visible boundaries
+                let p1ScreenPos = p1Pos - cameraX;
+                let p2ScreenPos = p2Pos - cameraX;
+
+                p1.style.left = p1ScreenPos + 'px';
+                p2.style.left = p2ScreenPos + 'px';
                 
                 let bgOffsetPercent = (cameraX / (worldWidth - boardWidth)) * 100;
                 gameBoard.style.backgroundPosition = `${bgOffsetPercent}% ${getVerticalPos()}`;
@@ -1091,14 +1117,16 @@
             grandPrizeMessage.style.display = 'block';
 
             if (winnerPlayer === 'p2') {
-                p2.style.left = '440px'; p2.style.bottom = '25px';
+                p2Pos = cameraX + 440;
+                p2.style.bottom = '25px';
                 p2.style.backgroundImage = `url('${p2Selection}win.png')`;
                 p1.style.display = 'none';
                 dillon.style.backgroundImage = "url('dill1.png')";
                 dillon.style.left = '430px';
                 setTimeout(() => { dillon.style.top = '140px'; }, 600);
             } else {
-                p1.style.left = '440px'; p1.style.bottom = '25px';
+                p1Pos = cameraX + 440;
+                p1.style.bottom = '25px';
                 p1.style.backgroundImage = `url('${p1Selection}win.png')`;
                 p2.style.display = 'none';
                 dillon.style.backgroundImage = "url('dill2.png')";
@@ -1116,7 +1144,7 @@
             p1HpBar.style.width = '100%'; p2HpBar.style.width = '100%';
             resetStatuses();
 
-            p1Pos = 600; p2Pos = 1400; cameraX = 500;
+            p1Pos = 400; p2Pos = 1600; cameraX = 500;
             hudElement.style.display = 'flex';
             p1.style.display = 'block'; p2.style.display = 'block';
             p1.style.bottom = '25px'; p2.style.bottom = '25px';
