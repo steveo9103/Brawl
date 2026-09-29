@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Foster Warehouse Brawl - Mobile</title>
 <style>
     * {
@@ -10,33 +10,32 @@
         user-select: none;
         -webkit-user-select: none;
         -webkit-touch-callout: none;
-    }
-    html, body {
         margin: 0;
         padding: 0;
-        width: 100vw;
-        height: 100vh;
+    }
+    html, body {
+        width: 100%;
+        height: 100dvh;
         background: #111;
         color: white;
         font-family: 'Courier New', Courier, monospace;
         overflow: hidden;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        touch-action: manipulation;
+        touch-action: none;
     }
 
     #game-container {
         position: relative;
         width: 100vw;
-        height: 100vh;
+        height: 100dvh;
         max-width: 1000px;
         max-height: 562.5px;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 4px;
     }
 
     #game-board {
@@ -49,7 +48,8 @@
         border: 2px solid #fff;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        box-shadow: 0 0 15px rgba(0,0,0,0.8);
+        border-radius: 6px;
     }
     #game-board.shifted-bg {
         background-position-y: bottom;
@@ -58,12 +58,12 @@
         background-position-y: 65%;
     }
 
-    /* Resized character dimensions for better arena scaling */
+    /* Scaled down character dimensions */
     .character {
-        width: 110px; 
-        height: 110px; 
+        width: 100px; 
+        height: 100px; 
         position: absolute; 
-        bottom: 35px; 
+        bottom: 25px; 
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center bottom;
@@ -74,8 +74,8 @@
     #p2 { left: 800px; z-index: 2; }
 
     #powerup-item, #health-item {
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
         position: absolute;
         top: -50px;
         background-size: contain;
@@ -88,7 +88,7 @@
     .hud { 
         display: flex; 
         justify-content: space-between; 
-        padding: 8px 12px; 
+        padding: 6px 10px; 
         position: absolute; 
         top: 0;
         width: 100%; 
@@ -98,7 +98,7 @@
     .health-box { 
         width: 100%; 
         background: #000; 
-        height: 18px; 
+        height: 16px; 
         border: 2px solid #fff; 
         position: relative;
     }
@@ -114,18 +114,18 @@
     }
     .info-container {
         background: rgba(0, 0, 0, 0.65);
-        padding: 3px 6px;
+        padding: 2px 5px;
         border-radius: 4px;
-        margin-top: 3px;
+        margin-top: 2px;
         display: inline-block;
     }
     .name-tag {
         font-weight: bold;
-        font-size: 13px;
+        font-size: 12px;
         text-shadow: 1px 1px #000;
     }
     .win-counter {
-        font-size: 11px;
+        font-size: 10px;
         color: #ff0;
         text-shadow: 1px 1px #000;
     }
@@ -138,7 +138,7 @@
         background: rgba(0, 0, 0, 0.75);
         border: 2px solid #fff;
         border-radius: 8px;
-        font-size: 24px;
+        font-size: 22px;
         font-weight: bold; 
         color: yellow; 
         text-shadow: 2px 2px #000; 
@@ -148,9 +148,9 @@
     }
     #restart-message {
         position: absolute;
-        bottom: 75px;
+        bottom: 65px;
         width: 100%;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: bold;
         color: #fff;
         text-shadow: 2px 2px #000;
@@ -163,7 +163,7 @@
         position: absolute;
         top: 15px;
         width: 100%;
-        font-size: 28px;
+        font-size: 24px;
         font-weight: bold;
         color: #000;
         text-shadow: 0 0 10px #fff, 0 0 20px #fff;
@@ -172,8 +172,8 @@
         text-align: center;
     }
     #dillon {
-        width: 110px;
-        height: 110px;
+        width: 100px;
+        height: 100px;
         position: absolute;
         top: -150px;
         background-size: contain;
@@ -197,7 +197,7 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 8px 12px;
+        padding: 6px 10px;
         overflow-y: auto;
     }
     .select-container {
@@ -218,8 +218,8 @@
         margin-top: 4px;
     }
     .portrait-option {
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         border: 2px solid #555;
         border-radius: 8px;
         cursor: pointer;
@@ -241,18 +241,18 @@
         justify-content: center;
         width: 100%;
         gap: 10px;
-        margin-bottom: 4px;
+        margin-bottom: 2px;
     }
     .preview-box {
-        width: 80px;
-        height: 90px;
+        width: 70px;
+        height: 75px;
         display: flex;
         align-items: flex-end;
         justify-content: center;
     }
     .preview-char {
-        width: 70px;
-        height: 80px;
+        width: 60px;
+        height: 70px;
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center bottom;
@@ -265,19 +265,19 @@
     }
     .powerup-section, .level-section {
         border: 1px dashed #666;
-        padding: 4px 8px;
+        padding: 3px 6px;
         border-radius: 6px;
         background: rgba(0, 0, 0, 0.7);
         width: 100%;
-        margin-bottom: 4px;
+        margin-bottom: 3px;
         text-align: center;
     }
     .powerup-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 2px 6px;
+        gap: 2px 4px;
         text-align: left;
-        font-size: 11px;
+        font-size: 10px;
     }
     .level-portraits {
         display: flex;
@@ -286,8 +286,8 @@
         margin-top: 2px;
     }
     .level-option {
-        width: 45px;
-        height: 30px;
+        width: 40px;
+        height: 25px;
         border: 2px solid #555;
         border-radius: 4px;
         cursor: pointer;
@@ -306,8 +306,8 @@
         align-items: center;
     }
     #start-brawl-btn {
-        padding: 8px 16px;
-        font-size: 14px;
+        padding: 6px 14px;
+        font-size: 13px;
         font-weight: bold;
         font-family: inherit;
         background: #4CAF50;
@@ -319,17 +319,17 @@
         box-shadow: 0 0 10px #4CAF50;
     }
 
-    /* Touch Controls Overlay */
+    /* On-screen Controls Overlay */
     #mobile-overlay-controls {
         position: absolute;
-        bottom: 6px;
+        bottom: 4px;
         left: 0;
         width: 100%;
-        height: 110px;
+        height: 95px;
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        padding: 0 12px;
+        padding: 0 8px;
         z-index: 15;
         pointer-events: none;
     }
@@ -338,23 +338,23 @@
     }
     .dpad-container {
         display: grid;
-        grid-template-columns: repeat(3, 38px);
-        grid-template-rows: repeat(2, 38px);
-        gap: 3px;
+        grid-template-columns: repeat(3, 32px);
+        grid-template-rows: repeat(2, 32px);
+        gap: 2px;
     }
     .touch-btn {
         background: rgba(0, 0, 0, 0.45);
         border: 2px solid rgba(255, 255, 255, 0.7);
-        border-radius: 8px;
+        border-radius: 6px;
         color: white;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: bold;
         display: flex;
         justify-content: center;
         align-items: center;
-        touch-action: manipulation;
+        touch-action: none;
         cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
     .touch-btn:active, .touch-btn.pressed {
         background: rgba(255, 255, 255, 0.4);
@@ -366,17 +366,17 @@
     #btn-up { grid-column: 2; grid-row: 1; }
 
     .attack-btn {
-        width: 60px;
-        height: 60px;
+        width: 52px;
+        height: 52px;
         border-radius: 50%;
         background: rgba(200, 0, 0, 0.45);
-        border: 3px solid rgba(255, 100, 100, 0.8);
+        border: 2px solid rgba(255, 100, 100, 0.8);
         color: #fff;
-        font-size: 11px;
+        font-size: 10px;
         font-weight: bold;
-        box-shadow: 0 0 10px rgba(255,0,0,0.4);
-        margin-bottom: 5px;
-        margin-right: 5px;
+        box-shadow: 0 0 8px rgba(255,0,0,0.4);
+        margin-bottom: 4px;
+        margin-right: 4px;
     }
     .attack-btn:active, .attack-btn.pressed {
         background: rgba(255, 0, 0, 0.75);
@@ -394,14 +394,14 @@
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: 100dvh;
         background: #111;
         z-index: 9999;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         color: yellow;
-        font-size: 18px;
+        font-size: 16px;
         text-align: center;
         padding: 20px;
     }
@@ -418,18 +418,18 @@
             
             <!-- Menu Screen -->
             <div id="char-select-screen">
-                <h2 style="margin: 2px 0; font-size: 18px; color: yellow;">FOSTER BRAWL - SELECT FIGHTERS</h2>
+                <h2 style="margin: 2px 0; font-size: 16px; color: yellow;">FOSTER BRAWL - SELECT FIGHTERS</h2>
                 <div class="select-container">
                     <div class="player-select-box">
-                        <h3 style="font-size: 13px; margin: 2px 0;">P1 Selection</h3>
+                        <h3 style="font-size: 12px; margin: 2px 0;">P1 Selection</h3>
                         <div class="select-portraits">
                             <div class="portrait-option" id="p1-select-steve" onclick="selectCharacter(1, 'steve')" style="background-image: url('steve.png');"></div>
                             <div class="portrait-option" id="p1-select-alex" onclick="selectCharacter(1, 'alex')" style="background-image: url('alex.png');"></div>
                             <div class="portrait-option" id="p1-select-dave" onclick="selectCharacter(1, 'dave')" style="background-image: url('dave.png');"></div>
                             <div class="portrait-option" id="p1-select-dilly" onclick="selectCharacter(1, 'dilly')" style="background-image: url('dilly.png');"></div>
                         </div>
-                        <p id="p1-choice-text" style="margin: 2px 0; color: #ff0; font-size: 12px; font-weight: bold;">Choose fighter</p>
-                        <label style="font-size: 11px; color: #0ff; cursor: pointer;">
+                        <p id="p1-choice-text" style="margin: 2px 0; color: #ff0; font-size: 11px; font-weight: bold;">Choose fighter</p>
+                        <label style="font-size: 10px; color: #0ff; cursor: pointer;">
                             <input type="checkbox" id="p1-is-computer" onchange="toggleComputer(1)"> P1 is CPU
                         </label>
                     </div>
@@ -439,15 +439,15 @@
                     </div>
 
                     <div class="player-select-box">
-                        <h3 style="font-size: 13px; margin: 2px 0;">P2 Selection</h3>
+                        <h3 style="font-size: 12px; margin: 2px 0;">P2 Selection</h3>
                         <div class="select-portraits">
                             <div class="portrait-option" id="p2-select-steve" onclick="selectCharacter(2, 'steve')" style="background-image: url('steve.png');"></div>
                             <div class="portrait-option" id="p2-select-alex" onclick="selectCharacter(2, 'alex')" style="background-image: url('alex.png');"></div>
                             <div class="portrait-option" id="p2-select-dave" onclick="selectCharacter(2, 'dave')" style="background-image: url('dave.png');"></div>
                             <div class="portrait-option" id="p2-select-dilly" onclick="selectCharacter(2, 'dilly')" style="background-image: url('dilly.png');"></div>
                         </div>
-                        <p id="p2-choice-text" style="margin: 2px 0; color: #ff0; font-size: 12px; font-weight: bold;">Choose fighter</p>
-                        <label style="font-size: 11px; color: #0ff; cursor: pointer;">
+                        <p id="p2-choice-text" style="margin: 2px 0; color: #ff0; font-size: 11px; font-weight: bold;">Choose fighter</p>
+                        <label style="font-size: 10px; color: #0ff; cursor: pointer;">
                             <input type="checkbox" id="p2-is-computer" checked onchange="toggleComputer(2)"> P2 is CPU
                         </label>
                     </div>
@@ -460,7 +460,7 @@
 
                     <div class="menu-center-options">
                         <div class="powerup-section">
-                            <h3 style="margin: 0 0 2px 0; font-size: 11px; color: #ff0;">POWER-UPS</h3>
+                            <h3 style="margin: 0 0 2px 0; font-size: 10px; color: #ff0;">POWER-UPS</h3>
                             <div class="powerup-grid">
                                 <label><input type="checkbox" id="pw-health"> HP</label>
                                 <label><input type="checkbox" id="pw-big"> Big</label>
@@ -474,7 +474,7 @@
                         </div>
 
                         <div class="level-section">
-                            <h3 style="margin: 0 0 2px 0; font-size: 11px; color: #ff0;">LEVEL SELECT</h3>
+                            <h3 style="margin: 0 0 2px 0; font-size: 10px; color: #ff0;">LEVEL SELECT</h3>
                             <div class="level-portraits">
                                 <div class="level-option selected" id="lvl-warehouse" onclick="selectLevel('background.png', 'Warehouse')" style="background-image: url('background.png');"></div>
                                 <div class="level-option" id="lvl-building" onclick="selectLevel('fosterlake.png', 'Old Building')" style="background-image: url('fosterlake.png');"></div>
@@ -558,11 +558,6 @@
         let p1IsComputer = false;
         let p2IsComputer = true; 
         let selectedLevelFile = 'background.png'; 
-
-        let p1RunFrame = 1;
-        let p2RunFrame = 1;
-        let p1AnimTimer = 0;
-        let p2AnimTimer = 0;
 
         function toggleComputer(playerNum) {
             if (playerNum === 1) p1IsComputer = document.getElementById('p1-is-computer').checked;
@@ -761,13 +756,12 @@
             }, 8000);
         }
 
-        /* Improved touch input binding */
+        /* Pointer-events based touch bindings to prevent auto-scooting / stuck inputs */
         function bindTouchControl(btnId, keyName) {
             const btn = document.getElementById(btnId);
             
-            const handleStart = (e) => {
-                if (e.cancelable) e.preventDefault();
-                e.stopPropagation();
+            const handleDown = (e) => {
+                e.preventDefault();
                 btn.classList.add('pressed');
                 keys[keyName] = true;
 
@@ -782,15 +776,14 @@
                 }
             };
 
-            const handleEnd = (e) => {
-                if (e.cancelable) e.preventDefault();
-                e.stopPropagation();
+            const handleUp = (e) => {
+                e.preventDefault();
                 btn.classList.remove('pressed');
                 keys[keyName] = false;
 
                 if (!p1IsComputer && keyName === 's' && p1Crouching) {
                     p1Crouching = false;
-                    p1.style.bottom = '35px'; 
+                    p1.style.bottom = '25px'; 
                     if (!p1Punching) {
                         p1.style.backgroundImage = `url('${p1Selection}.png')`;
                         updatePlayerVisuals(1, 'idle');
@@ -798,11 +791,10 @@
                 }
             };
 
-            btn.addEventListener('touchstart', handleStart, { passive: false });
-            btn.addEventListener('touchend', handleEnd, { passive: false });
-            btn.addEventListener('mousedown', handleStart);
-            btn.addEventListener('mouseup', handleEnd);
-            btn.addEventListener('mouseleave', handleEnd);
+            btn.addEventListener('pointerdown', handleDown);
+            btn.addEventListener('pointerup', handleUp);
+            btn.addEventListener('pointercancel', handleUp);
+            btn.addEventListener('pointerleave', handleUp);
         }
 
         bindTouchControl('btn-left', 'a');
@@ -829,7 +821,7 @@
             keys[e.key] = false;
             if (!p1IsComputer && (e.key === 's' || e.key === 'S') && p1Crouching) {
                 p1Crouching = false;
-                p1.style.bottom = '35px';
+                p1.style.bottom = '25px';
                 if (!p1Punching) {
                     p1.style.backgroundImage = `url('${p1Selection}.png')`;
                     updatePlayerVisuals(1, 'idle');
@@ -837,6 +829,7 @@
             }
         });
 
+        /* Running animation connected directly to daverun.png / steverun.png etc. */
         function applyRunAnimation(playerNum, isMoving) {
             let el = (playerNum === 1) ? p1 : p2;
             let selection = (playerNum === 1) ? p1Selection : p2Selection;
@@ -847,12 +840,11 @@
             if (isJumping || isCrouching || isPunching) return;
 
             if (isMoving) {
-                let frame = (playerNum === 1) ? p1RunFrame : p2RunFrame;
+                let runSrc = `${selection}run.png`;
                 let runImg = new Image();
-                let runSrc = `${selection}run${frame}.png`;
                 runImg.src = runSrc;
 
-                // Fall back cleanly to standard sprite if character run files do not exist
+                // Dynamically fall back to standing sprite if character run sprite isn't present
                 runImg.onload = () => { el.style.backgroundImage = `url('${runSrc}')`; };
                 runImg.onerror = () => { el.style.backgroundImage = `url('${selection}.png')`; };
             } else {
@@ -874,8 +866,6 @@
 
                 if (!p1Jumping && !p1Crouching && Math.random() < 0.015) p1Jump();
 
-                p1AnimTimer++;
-                if (p1AnimTimer % 8 === 0) p1RunFrame = (p1RunFrame === 1) ? 2 : 1;
                 applyRunAnimation(1, isMovingP1);
             }
 
@@ -890,8 +880,6 @@
 
                 if (!p2Jumping && !p2Crouching && Math.random() < 0.015) p2Jump();
 
-                p2AnimTimer++;
-                if (p2AnimTimer % 8 === 0) p2RunFrame = (p2RunFrame === 1) ? 2 : 1;
                 applyRunAnimation(2, isMovingP2);
             }
         }
@@ -907,12 +895,10 @@
                         isMovingP1 = true;
                     }
                     if (keys['d'] || keys['D'] || keys['btn-right']) {
-                        p1Pos = Math.min(worldWidth - 110, p1Pos + p1Speed);
+                        p1Pos = Math.min(worldWidth - 100, p1Pos + p1Speed);
                         isMovingP1 = true;
                     }
 
-                    p1AnimTimer++;
-                    if (p1AnimTimer % 8 === 0) p1RunFrame = (p1RunFrame === 1) ? 2 : 1;
                     applyRunAnimation(1, isMovingP1);
                 }
 
@@ -935,9 +921,9 @@
 
                     if (activeItem.y >= 450) { removeActiveItem(); scheduleNextItemSpawn(); }
                     else {
-                        if (Math.abs((activeItem.x + 15) - (p1Pos + 55)) < 50 && activeItem.y > 200) {
+                        if (Math.abs((activeItem.x + 15) - (p1Pos + 50)) < 50 && activeItem.y > 200) {
                             applyPowerUpToPlayer(1, activeItem.type); removeActiveItem(); scheduleNextItemSpawn();
-                        } else if (Math.abs((activeItem.x + 15) - (p2Pos + 55)) < 50 && activeItem.y > 200) {
+                        } else if (Math.abs((activeItem.x + 15) - (p2Pos + 50)) < 50 && activeItem.y > 200) {
                             applyPowerUpToPlayer(2, activeItem.type); removeActiveItem(); scheduleNextItemSpawn();
                         }
                     }
@@ -950,9 +936,9 @@
 
                     if (activeHealthItem.y >= 450) { removeActiveHealthItem(); scheduleNextHealthSpawn(); }
                     else {
-                        if (Math.abs((activeHealthItem.x + 15) - (p1Pos + 55)) < 50 && activeHealthItem.y > 200) {
+                        if (Math.abs((activeHealthItem.x + 15) - (p1Pos + 50)) < 50 && activeHealthItem.y > 200) {
                             applyPowerUpToPlayer(1, 'health'); removeActiveHealthItem(); scheduleNextHealthSpawn();
-                        } else if (Math.abs((activeHealthItem.x + 15) - (p2Pos + 55)) < 50 && activeHealthItem.y > 200) {
+                        } else if (Math.abs((activeHealthItem.x + 15) - (p2Pos + 50)) < 50 && activeHealthItem.y > 200) {
                             applyPowerUpToPlayer(2, 'health'); removeActiveHealthItem(); scheduleNextHealthSpawn();
                         }
                     }
@@ -1003,10 +989,10 @@
             p1Jumping = true;
             p1.style.backgroundImage = `url('${p1Selection}jump.png')`;
             updatePlayerVisuals(1, 'jump');
-            p1.style.bottom = '140px';
+            p1.style.bottom = '130px';
             if (p1JumpTimer) clearTimeout(p1JumpTimer);
             p1JumpTimer = setTimeout(() => {
-                p1.style.bottom = '35px'; p1Jumping = false;
+                p1.style.bottom = '25px'; p1Jumping = false;
                 if (!gameOver) { p1.style.backgroundImage = `url('${p1Selection}.png')`; updatePlayerVisuals(1, 'idle'); }
             }, 380);
         }
@@ -1022,7 +1008,7 @@
             p1.style.backgroundImage = `url('${p1Selection}punch.png')`;
             updatePlayerVisuals(1, 'punch');
             
-            if (Math.abs(p2Pos - p1Pos) <= 110) { 
+            if (Math.abs(p2Pos - p1Pos) <= 100) { 
                 p2Health -= 5; p2HpBar.style.width = Math.max(0, p2Health) + '%';
                 if (p2Health <= 0) {
                     p1Wins++; p1WinsText.innerText = p1Wins;
@@ -1044,10 +1030,10 @@
             p2Jumping = true;
             p2.style.backgroundImage = `url('${p2Selection}jump.png')`;
             updatePlayerVisuals(2, 'jump');
-            p2.style.bottom = '140px';
+            p2.style.bottom = '130px';
             if (p2JumpTimer) clearTimeout(p2JumpTimer);
             p2JumpTimer = setTimeout(() => {
-                p2.style.bottom = '35px'; p2Jumping = false;
+                p2.style.bottom = '25px'; p2Jumping = false;
                 if (!gameOver) { p2.style.backgroundImage = `url('${p2Selection}.png')`; updatePlayerVisuals(2, 'idle'); }
             }, 380);
         }
@@ -1063,7 +1049,7 @@
             p2.style.backgroundImage = `url('${p2Selection}punch.png')`;
             updatePlayerVisuals(2, 'punch');
             
-            if (Math.abs(p2Pos - p1Pos) <= 110) { 
+            if (Math.abs(p2Pos - p1Pos) <= 100) { 
                 p1Health -= 5; p1HpBar.style.width = Math.max(0, p1Health) + '%';
                 if (p1Health <= 0) {
                     p2Wins++; p2WinsText.innerText = p2Wins;
@@ -1105,14 +1091,14 @@
             grandPrizeMessage.style.display = 'block';
 
             if (winnerPlayer === 'p2') {
-                p2.style.left = '440px'; p2.style.bottom = '35px';
+                p2.style.left = '440px'; p2.style.bottom = '25px';
                 p2.style.backgroundImage = `url('${p2Selection}win.png')`;
                 p1.style.display = 'none';
                 dillon.style.backgroundImage = "url('dill1.png')";
                 dillon.style.left = '430px';
                 setTimeout(() => { dillon.style.top = '140px'; }, 600);
             } else {
-                p1.style.left = '440px'; p1.style.bottom = '35px';
+                p1.style.left = '440px'; p1.style.bottom = '25px';
                 p1.style.backgroundImage = `url('${p1Selection}win.png')`;
                 p2.style.display = 'none';
                 dillon.style.backgroundImage = "url('dill2.png')";
@@ -1133,7 +1119,7 @@
             p1Pos = 600; p2Pos = 1400; cameraX = 500;
             hudElement.style.display = 'flex';
             p1.style.display = 'block'; p2.style.display = 'block';
-            p1.style.bottom = '35px'; p2.style.bottom = '35px';
+            p1.style.bottom = '25px'; p2.style.bottom = '25px';
 
             p1.style.backgroundImage = `url('${p1Selection}.png')`;
             p2.style.backgroundImage = `url('${p2Selection}.png')`;
