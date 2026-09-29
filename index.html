@@ -27,13 +27,12 @@
         touch-action: manipulation;
     }
 
-    /* Outer Wrapper scales down to fit small mobile screens */
     #game-container {
         position: relative;
         width: 100vw;
         height: 100vh;
         max-width: 1000px;
-        max-height: 562.5px; /* 16:9 Aspect Ratio */
+        max-height: 562.5px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -59,23 +58,24 @@
         background-position-y: 65%;
     }
 
+    /* Resized character dimensions for better arena scaling */
     .character {
-        width: 180px; 
-        height: 180px; 
+        width: 110px; 
+        height: 110px; 
         position: absolute; 
-        bottom: 50px; 
+        bottom: 35px; 
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center bottom;
-        transition: transform 0.1s, opacity 0.2s;
+        transition: transform 0.08s, opacity 0.2s;
     }
     
-    #p1 { left: 70px; z-index: 2; }
-    #p2 { left: 870px; z-index: 2; }
+    #p1 { left: 100px; z-index: 2; }
+    #p2 { left: 800px; z-index: 2; }
 
     #powerup-item, #health-item {
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
         position: absolute;
         top: -50px;
         background-size: contain;
@@ -88,7 +88,7 @@
     .hud { 
         display: flex; 
         justify-content: space-between; 
-        padding: 10px 15px; 
+        padding: 8px 12px; 
         position: absolute; 
         top: 0;
         width: 100%; 
@@ -98,7 +98,7 @@
     .health-box { 
         width: 100%; 
         background: #000; 
-        height: 22px; 
+        height: 18px; 
         border: 2px solid #fff; 
         position: relative;
     }
@@ -114,18 +114,18 @@
     }
     .info-container {
         background: rgba(0, 0, 0, 0.65);
-        padding: 4px 8px;
+        padding: 3px 6px;
         border-radius: 4px;
-        margin-top: 4px;
+        margin-top: 3px;
         display: inline-block;
     }
     .name-tag {
         font-weight: bold;
-        font-size: 14px;
+        font-size: 13px;
         text-shadow: 1px 1px #000;
     }
     .win-counter {
-        font-size: 12px;
+        font-size: 11px;
         color: #ff0;
         text-shadow: 1px 1px #000;
     }
@@ -138,7 +138,7 @@
         background: rgba(0, 0, 0, 0.75);
         border: 2px solid #fff;
         border-radius: 8px;
-        font-size: 26px;
+        font-size: 24px;
         font-weight: bold; 
         color: yellow; 
         text-shadow: 2px 2px #000; 
@@ -150,7 +150,7 @@
         position: absolute;
         bottom: 75px;
         width: 100%;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: bold;
         color: #fff;
         text-shadow: 2px 2px #000;
@@ -163,7 +163,7 @@
         position: absolute;
         top: 15px;
         width: 100%;
-        font-size: 32px;
+        font-size: 28px;
         font-weight: bold;
         color: #000;
         text-shadow: 0 0 10px #fff, 0 0 20px #fff;
@@ -172,18 +172,17 @@
         text-align: center;
     }
     #dillon {
-        width: 180px;
-        height: 180px;
+        width: 110px;
+        height: 110px;
         position: absolute;
-        top: -220px;
-        background-size: auto 100%;
+        top: -150px;
+        background-size: contain;
         background-repeat: no-repeat;
         background-position: center bottom;
         z-index: 12;
         transition: top 2.5s ease-out;
     }
 
-    /* Menu & Character Select Screen */
     #char-select-screen {
         position: absolute;
         top: 0;
@@ -219,8 +218,8 @@
         margin-top: 4px;
     }
     .portrait-option {
-        width: 55px;
-        height: 55px;
+        width: 50px;
+        height: 50px;
         border: 2px solid #555;
         border-radius: 8px;
         cursor: pointer;
@@ -245,15 +244,15 @@
         margin-bottom: 4px;
     }
     .preview-box {
-        width: 90px;
-        height: 110px;
+        width: 80px;
+        height: 90px;
         display: flex;
         align-items: flex-end;
         justify-content: center;
     }
     .preview-char {
-        width: 80px;
-        height: 100px;
+        width: 70px;
+        height: 80px;
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center bottom;
@@ -287,8 +286,8 @@
         margin-top: 2px;
     }
     .level-option {
-        width: 50px;
-        height: 35px;
+        width: 45px;
+        height: 30px;
         border: 2px solid #555;
         border-radius: 4px;
         cursor: pointer;
@@ -320,17 +319,17 @@
         box-shadow: 0 0 10px #4CAF50;
     }
 
-    /* On-screen controls embedded inside game board */
+    /* Touch Controls Overlay */
     #mobile-overlay-controls {
         position: absolute;
-        bottom: 8px;
+        bottom: 6px;
         left: 0;
         width: 100%;
-        height: 130px;
+        height: 110px;
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        padding: 0 15px;
+        padding: 0 12px;
         z-index: 15;
         pointer-events: none;
     }
@@ -339,16 +338,16 @@
     }
     .dpad-container {
         display: grid;
-        grid-template-columns: repeat(3, 42px);
-        grid-template-rows: repeat(2, 42px);
-        gap: 4px;
+        grid-template-columns: repeat(3, 38px);
+        grid-template-rows: repeat(2, 38px);
+        gap: 3px;
     }
     .touch-btn {
         background: rgba(0, 0, 0, 0.45);
         border: 2px solid rgba(255, 255, 255, 0.7);
         border-radius: 8px;
         color: white;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: bold;
         display: flex;
         justify-content: center;
@@ -367,13 +366,13 @@
     #btn-up { grid-column: 2; grid-row: 1; }
 
     .attack-btn {
-        width: 70px;
-        height: 70px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         background: rgba(200, 0, 0, 0.45);
         border: 3px solid rgba(255, 100, 100, 0.8);
         color: #fff;
-        font-size: 13px;
+        font-size: 11px;
         font-weight: bold;
         box-shadow: 0 0 10px rgba(255,0,0,0.4);
         margin-bottom: 5px;
@@ -384,7 +383,6 @@
         transform: scale(0.92);
     }
 
-    /* Landscape enforcement overlay */
     @media screen and (orientation: portrait) {
         #portrait-warning {
             display: flex !important;
@@ -521,7 +519,7 @@
             <div class="character" id="p2"></div>
             <div id="dillon"></div>
 
-            <!-- Embedded Touch Controls (Corner Overlays) -->
+            <!-- On-screen controls overlay -->
             <div id="mobile-overlay-controls">
                 <div class="dpad-container">
                     <div class="touch-btn" id="btn-up">▲</div>
@@ -561,10 +559,10 @@
         let p2IsComputer = true; 
         let selectedLevelFile = 'background.png'; 
 
+        let p1RunFrame = 1;
+        let p2RunFrame = 1;
         let p1AnimTimer = 0;
         let p2AnimTimer = 0;
-        let p1LastPos = 600;
-        let p2LastPos = 1400;
 
         function toggleComputer(playerNum) {
             if (playerNum === 1) p1IsComputer = document.getElementById('p1-is-computer').checked;
@@ -579,7 +577,6 @@
 
         function getFacingScale(playerNum, statusObj, poseType) {
             let character = (playerNum === 1) ? p1Selection : p2Selection;
-            let el = (playerNum === 1) ? p1 : p2;
             
             let defaultFacing = (character === 'dave') ? -1 : 1;
             let shouldFaceRight = (playerNum === 1) ? (p1Pos < p2Pos) : (p2Pos < p1Pos);
@@ -588,18 +585,17 @@
             let baseDirection = targetDirection * defaultFacing;
             
             let mult = 1;
-            if (statusObj.big) mult = 1.8;       
-            if (statusObj.small) mult = 0.3;
+            if (statusObj.big) mult = 1.6;       
+            if (statusObj.small) mult = 0.4;
 
             let extraMult = 1;
-            if (poseType === 'jump') extraMult = (character === 'alex') ? 0.85 : 1.1;
-            else if (poseType === 'punch') extraMult = (character === 'dave') ? 1.1 : 0.95;
+            if (poseType === 'jump') extraMult = 1.05;
             
             let crouchMult = 1;
             let isCrouching = (playerNum === 1) ? p1Crouching : p2Crouching;
-            if (isCrouching) crouchMult = (character === 'alex') ? 0.75 : 0.85;
+            if (isCrouching) crouchMult = 0.85;
 
-            let totalMult = mult * extraMult * crouchMult * ((character === 'alex') ? 1.12 : 1.0);
+            let totalMult = mult * extraMult * crouchMult;
             return `scaleX(${baseDirection * totalMult}) scaleY(${totalMult})`;
         }
 
@@ -690,6 +686,11 @@
 
         const keys = {};
 
+        function clearKeys() {
+            for (let k in keys) keys[k] = false;
+            document.querySelectorAll('.touch-btn').forEach(btn => btn.classList.remove('pressed'));
+        }
+
         function resetStatuses() {
             for (let k in p1Status) p1Status[k] = false;
             for (let k in p2Status) p2Status[k] = false;
@@ -697,17 +698,8 @@
             for (let k in p2Timers) clearTimeout(p2Timers[k]);
         }
 
-        function lockLandscapeOrientation() {
-            if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('landscape').catch(() => {});
-            }
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen().catch(() => {});
-            }
-        }
-
         function startBrawl() {
-            lockLandscapeOrientation();
+            clearKeys();
             charSelectScreen.style.display = 'none';
             gameOver = false;
             
@@ -769,12 +761,13 @@
             }, 8000);
         }
 
-        /* Direct Touch Controls Setup */
+        /* Improved touch input binding */
         function bindTouchControl(btnId, keyName) {
             const btn = document.getElementById(btnId);
+            
             const handleStart = (e) => {
-                e.preventDefault();
-                lockLandscapeOrientation();
+                if (e.cancelable) e.preventDefault();
+                e.stopPropagation();
                 btn.classList.add('pressed');
                 keys[keyName] = true;
 
@@ -790,13 +783,14 @@
             };
 
             const handleEnd = (e) => {
-                e.preventDefault();
+                if (e.cancelable) e.preventDefault();
+                e.stopPropagation();
                 btn.classList.remove('pressed');
                 keys[keyName] = false;
 
                 if (!p1IsComputer && keyName === 's' && p1Crouching) {
                     p1Crouching = false;
-                    p1.style.bottom = '50px'; 
+                    p1.style.bottom = '35px'; 
                     if (!p1Punching) {
                         p1.style.backgroundImage = `url('${p1Selection}.png')`;
                         updatePlayerVisuals(1, 'idle');
@@ -808,6 +802,7 @@
             btn.addEventListener('touchend', handleEnd, { passive: false });
             btn.addEventListener('mousedown', handleStart);
             btn.addEventListener('mouseup', handleEnd);
+            btn.addEventListener('mouseleave', handleEnd);
         }
 
         bindTouchControl('btn-left', 'a');
@@ -834,7 +829,7 @@
             keys[e.key] = false;
             if (!p1IsComputer && (e.key === 's' || e.key === 'S') && p1Crouching) {
                 p1Crouching = false;
-                p1.style.bottom = '50px';
+                p1.style.bottom = '35px';
                 if (!p1Punching) {
                     p1.style.backgroundImage = `url('${p1Selection}.png')`;
                     updatePlayerVisuals(1, 'idle');
@@ -842,23 +837,62 @@
             }
         });
 
+        function applyRunAnimation(playerNum, isMoving) {
+            let el = (playerNum === 1) ? p1 : p2;
+            let selection = (playerNum === 1) ? p1Selection : p2Selection;
+            let isJumping = (playerNum === 1) ? p1Jumping : p2Jumping;
+            let isCrouching = (playerNum === 1) ? p1Crouching : p2Crouching;
+            let isPunching = (playerNum === 1) ? p1Punching : p2Punching;
+
+            if (isJumping || isCrouching || isPunching) return;
+
+            if (isMoving) {
+                let frame = (playerNum === 1) ? p1RunFrame : p2RunFrame;
+                let runImg = new Image();
+                let runSrc = `${selection}run${frame}.png`;
+                runImg.src = runSrc;
+
+                // Fall back cleanly to standard sprite if character run files do not exist
+                runImg.onload = () => { el.style.backgroundImage = `url('${runSrc}')`; };
+                runImg.onerror = () => { el.style.backgroundImage = `url('${selection}.png')`; };
+            } else {
+                el.style.backgroundImage = `url('${selection}.png')`;
+            }
+        }
+
         function updateComputerControls() {
             if (gameOver || charSelectScreen.style.display !== 'none') return;
 
             if (p1IsComputer && !p1Status.frozen) {
                 let baseSpeed = p1Status.fast ? 8 : (p1Status.slow ? 2 : 4);
                 let distance = p2Pos - p1Pos;
-                if (Math.abs(distance) > 130) p1Pos += (distance > 0 ? baseSpeed : -baseSpeed);
-                else if (!p1Punching && Math.random() < 0.12) p1Punch();
+                let isMovingP1 = false;
+                if (Math.abs(distance) > 100) {
+                    p1Pos += (distance > 0 ? baseSpeed : -baseSpeed);
+                    isMovingP1 = true;
+                } else if (!p1Punching && Math.random() < 0.12) p1Punch();
+
                 if (!p1Jumping && !p1Crouching && Math.random() < 0.015) p1Jump();
+
+                p1AnimTimer++;
+                if (p1AnimTimer % 8 === 0) p1RunFrame = (p1RunFrame === 1) ? 2 : 1;
+                applyRunAnimation(1, isMovingP1);
             }
 
             if (p2IsComputer && !p2Status.frozen) {
                 let baseSpeed = p2Status.fast ? 8 : (p2Status.slow ? 2 : 4);
                 let distance = p1Pos - p2Pos;
-                if (Math.abs(distance) > 130) p2Pos += (distance > 0 ? baseSpeed : -baseSpeed);
-                else if (!p2Punching && Math.random() < 0.12) p2Punch();
+                let isMovingP2 = false;
+                if (Math.abs(distance) > 100) {
+                    p2Pos += (distance > 0 ? baseSpeed : -baseSpeed);
+                    isMovingP2 = true;
+                } else if (!p2Punching && Math.random() < 0.12) p2Punch();
+
                 if (!p2Jumping && !p2Crouching && Math.random() < 0.015) p2Jump();
+
+                p2AnimTimer++;
+                if (p2AnimTimer % 8 === 0) p2RunFrame = (p2RunFrame === 1) ? 2 : 1;
+                applyRunAnimation(2, isMovingP2);
             }
         }
 
@@ -867,8 +901,19 @@
                 let p1Speed = 4 * (p1Status.fast ? 2 : (p1Status.slow ? 0.5 : 1));
                 
                 if (!p1IsComputer && !p1Status.frozen) {
-                    if (keys['a'] || keys['A']) p1Pos = Math.max(0, p1Pos - p1Speed);
-                    if (keys['d'] || keys['D']) p1Pos = Math.min(worldWidth - 180, p1Pos + p1Speed);
+                    let isMovingP1 = false;
+                    if (keys['a'] || keys['A'] || keys['btn-left']) {
+                        p1Pos = Math.max(0, p1Pos - p1Speed);
+                        isMovingP1 = true;
+                    }
+                    if (keys['d'] || keys['D'] || keys['btn-right']) {
+                        p1Pos = Math.min(worldWidth - 110, p1Pos + p1Speed);
+                        isMovingP1 = true;
+                    }
+
+                    p1AnimTimer++;
+                    if (p1AnimTimer % 8 === 0) p1RunFrame = (p1RunFrame === 1) ? 2 : 1;
+                    applyRunAnimation(1, isMovingP1);
                 }
 
                 updateComputerControls();
@@ -890,9 +935,9 @@
 
                     if (activeItem.y >= 450) { removeActiveItem(); scheduleNextItemSpawn(); }
                     else {
-                        if (Math.abs((activeItem.x + 20) - (p1Pos + 90)) < 70 && activeItem.y > 200) {
+                        if (Math.abs((activeItem.x + 15) - (p1Pos + 55)) < 50 && activeItem.y > 200) {
                             applyPowerUpToPlayer(1, activeItem.type); removeActiveItem(); scheduleNextItemSpawn();
-                        } else if (Math.abs((activeItem.x + 20) - (p2Pos + 90)) < 70 && activeItem.y > 200) {
+                        } else if (Math.abs((activeItem.x + 15) - (p2Pos + 55)) < 50 && activeItem.y > 200) {
                             applyPowerUpToPlayer(2, activeItem.type); removeActiveItem(); scheduleNextItemSpawn();
                         }
                     }
@@ -905,9 +950,9 @@
 
                     if (activeHealthItem.y >= 450) { removeActiveHealthItem(); scheduleNextHealthSpawn(); }
                     else {
-                        if (Math.abs((activeHealthItem.x + 20) - (p1Pos + 90)) < 70 && activeHealthItem.y > 200) {
+                        if (Math.abs((activeHealthItem.x + 15) - (p1Pos + 55)) < 50 && activeHealthItem.y > 200) {
                             applyPowerUpToPlayer(1, 'health'); removeActiveHealthItem(); scheduleNextHealthSpawn();
-                        } else if (Math.abs((activeHealthItem.x + 20) - (p2Pos + 90)) < 70 && activeHealthItem.y > 200) {
+                        } else if (Math.abs((activeHealthItem.x + 15) - (p2Pos + 55)) < 50 && activeHealthItem.y > 200) {
                             applyPowerUpToPlayer(2, 'health'); removeActiveHealthItem(); scheduleNextHealthSpawn();
                         }
                     }
@@ -958,10 +1003,10 @@
             p1Jumping = true;
             p1.style.backgroundImage = `url('${p1Selection}jump.png')`;
             updatePlayerVisuals(1, 'jump');
-            p1.style.bottom = '180px';
+            p1.style.bottom = '140px';
             if (p1JumpTimer) clearTimeout(p1JumpTimer);
             p1JumpTimer = setTimeout(() => {
-                p1.style.bottom = '50px'; p1Jumping = false;
+                p1.style.bottom = '35px'; p1Jumping = false;
                 if (!gameOver) { p1.style.backgroundImage = `url('${p1Selection}.png')`; updatePlayerVisuals(1, 'idle'); }
             }, 380);
         }
@@ -977,7 +1022,7 @@
             p1.style.backgroundImage = `url('${p1Selection}punch.png')`;
             updatePlayerVisuals(1, 'punch');
             
-            if (Math.abs(p2Pos - p1Pos) <= 160) { 
+            if (Math.abs(p2Pos - p1Pos) <= 110) { 
                 p2Health -= 5; p2HpBar.style.width = Math.max(0, p2Health) + '%';
                 if (p2Health <= 0) {
                     p1Wins++; p1WinsText.innerText = p1Wins;
@@ -999,10 +1044,10 @@
             p2Jumping = true;
             p2.style.backgroundImage = `url('${p2Selection}jump.png')`;
             updatePlayerVisuals(2, 'jump');
-            p2.style.bottom = '180px';
+            p2.style.bottom = '140px';
             if (p2JumpTimer) clearTimeout(p2JumpTimer);
             p2JumpTimer = setTimeout(() => {
-                p2.style.bottom = '50px'; p2Jumping = false;
+                p2.style.bottom = '35px'; p2Jumping = false;
                 if (!gameOver) { p2.style.backgroundImage = `url('${p2Selection}.png')`; updatePlayerVisuals(2, 'idle'); }
             }, 380);
         }
@@ -1018,7 +1063,7 @@
             p2.style.backgroundImage = `url('${p2Selection}punch.png')`;
             updatePlayerVisuals(2, 'punch');
             
-            if (Math.abs(p2Pos - p1Pos) <= 160) { 
+            if (Math.abs(p2Pos - p1Pos) <= 110) { 
                 p1Health -= 5; p1HpBar.style.width = Math.max(0, p1Health) + '%';
                 if (p1Health <= 0) {
                     p2Wins++; p2WinsText.innerText = p2Wins;
@@ -1038,6 +1083,7 @@
 
         function endGame(winnerText) {
             gameOver = true;
+            clearKeys();
             if (spawnTimeout) clearTimeout(spawnTimeout);
             if (healthSpawnTimeout) clearTimeout(healthSpawnTimeout);
             removeActiveItem(); removeActiveHealthItem();
@@ -1048,6 +1094,7 @@
 
         function triggerMatchEnd(winnerPlayer) {
             matchEnded = true; gameOver = true;
+            clearKeys();
             if (spawnTimeout) clearTimeout(spawnTimeout);
             if (healthSpawnTimeout) clearTimeout(healthSpawnTimeout);
             removeActiveItem(); removeActiveHealthItem();
@@ -1058,25 +1105,26 @@
             grandPrizeMessage.style.display = 'block';
 
             if (winnerPlayer === 'p2') {
-                p2.style.left = '410px'; p2.style.bottom = '50px';
+                p2.style.left = '440px'; p2.style.bottom = '35px';
                 p2.style.backgroundImage = `url('${p2Selection}win.png')`;
                 p1.style.display = 'none';
                 dillon.style.backgroundImage = "url('dill1.png')";
-                dillon.style.left = '400px';
-                setTimeout(() => { dillon.style.top = '220px'; }, 600);
+                dillon.style.left = '430px';
+                setTimeout(() => { dillon.style.top = '140px'; }, 600);
             } else {
-                p1.style.left = '410px'; p1.style.bottom = '50px';
+                p1.style.left = '440px'; p1.style.bottom = '35px';
                 p1.style.backgroundImage = `url('${p1Selection}win.png')`;
                 p2.style.display = 'none';
                 dillon.style.backgroundImage = "url('dill2.png')";
-                dillon.style.left = '420px';
-                setTimeout(() => { dillon.style.top = '220px'; }, 600);
+                dillon.style.left = '450px';
+                setTimeout(() => { dillon.style.top = '140px'; }, 600);
             }
         }
 
         function resetGame() {
             if (matchEnded) { p1Wins = 0; p2Wins = 0; p1WinsText.innerText = '0'; p2WinsText.innerText = '0'; matchEnded = false; }
             gameOver = false;
+            clearKeys();
             
             p1Health = 100; p2Health = 100;
             p1HpBar.style.width = '100%'; p2HpBar.style.width = '100%';
@@ -1085,21 +1133,19 @@
             p1Pos = 600; p2Pos = 1400; cameraX = 500;
             hudElement.style.display = 'flex';
             p1.style.display = 'block'; p2.style.display = 'block';
-            p1.style.bottom = '50px'; p2.style.bottom = '50px';
+            p1.style.bottom = '35px'; p2.style.bottom = '35px';
 
             p1.style.backgroundImage = `url('${p1Selection}.png')`;
             p2.style.backgroundImage = `url('${p2Selection}.png')`;
             updatePlayerVisuals(1, 'idle'); updatePlayerVisuals(2, 'idle');
 
-            dillon.style.top = '-220px';
+            dillon.style.top = '-150px';
             message.style.display = 'none';
             restartMessage.style.display = 'none';
             grandPrizeMessage.style.display = 'none';
             
             p1Jumping = false; p1Crouching = false;
             p2Jumping = false; p2Crouching = false;
-            
-            for (let k in keys) keys[k] = false;
 
             scheduleNextItemSpawn(); scheduleNextHealthSpawn();
         }
